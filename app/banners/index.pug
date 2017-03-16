@@ -1,0 +1,15 @@
+extends ../index
+
+append js
+  script(src='/banners/index.js')
+
+block content
+  .c-banner-containers.peppermint.peppermint-inactive
+    .c-banner-container.js-banner-container
+      include ./_one
+    .c-banner-container.js-banner-container
+      include ./_two
+    .c-banner-container.js-banner-container
+      include ./_three
+    .c-banner-container.js-banner-container
+      include ./_four

@@ -1,0 +1,3 @@
+extends:
+  - 'lint-rules/stylelint/index.js'
+  - 'lint-rules/stylelint/scss.js'

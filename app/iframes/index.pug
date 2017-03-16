@@ -1,0 +1,10 @@
+extends ../index
+
+append js
+  script(src='/iframes/index.js')
+
+block content
+  .c-banners.peppermint.peppermint-inactive
+    each banner in [ 'one', 'two', 'three', 'four' ]
+      figure(class=`c-banner-container c-banner-container--${banner} js-banner-container`)
+        iframe.c-banner-container__iframe(src=`/banners/${banner}.html`)

@@ -1,0 +1,19 @@
+extends ./_layout
+
+append js
+  script(src='/js/vendors/jquery.min.js')
+
+block body
+  header(class="s-header" role="banner")
+    block header
+      p header
+
+  block banner
+
+  main(class="s-content o-site-wrapper" itemscope itemtype="http://schema.org/WebPageElement" itemprop="mainContentOfPage" role="main")
+    block content
+      p main
+
+  footer(class="s-footer" itemscope itemtype="https://schema.org/WPFooter" role="contentinfo" )
+    block footer
+      p footer
