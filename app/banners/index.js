@@ -40,6 +40,7 @@ $(() => {
         .find('iframe')
         .contents()
         .find('.c-banner')
+        .removeClass('is-prev is-current is-next')
         .addClass(this.className.replace(/-container/g, ''))
     })
   }
@@ -80,7 +81,7 @@ $(() => {
             .attr('href', $link.attr('data-banner-href'))
             .removeAttr('data-banner-href')
         })
-      $obj.addClass('is-loaded is-current')
+      $obj.addClass('is-loaded')
       setTimeout(() => $obj.removeClass('is-loading'), 1000)
       lazy.check()
     })
