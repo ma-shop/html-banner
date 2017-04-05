@@ -24,9 +24,16 @@ function update(i = 0) {
 
   // loop through each of the banners and add the same classes to the iframes html element
   $banner_containers.each(function Frame() {
-    const $obj = $(this);
-    const $document = $obj.find('iframe').contents()
+    const $obj = $(this)
+    const $iframe = $obj.find('iframe')
+    const $document = $iframe.contents()
     const fn = () => {
+      $iframe
+        .attr('allowfullscreen', 'true')
+        .attr('sandbox', 'allow-scripts allow-pointer-lock allow-same-origin allow-popups allow-modals allow-forms')
+        .attr('allowtransparency', 'true')
+      $document.find('html')
+        .addClass('c-banner-html')
       $obj.addClass('is-loaded')
       $document.find('[data-banner-src], [data-banner-srcset]')
         .each(function Image() {

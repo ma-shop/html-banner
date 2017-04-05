@@ -35,10 +35,13 @@ $(() => {
     $obj.append(iframe)
 
 
-    iframe = iframify(iframe, { bodyExtra: html })
+    iframe = iframify(iframe, { bodyExtra: html, htmlAttr: { class: 'c-banner-html' } })
 
     const $iframe = $(iframe)
       .addClass('c-banner-container__iframe')
+      .attr('allowfullscreen', 'true')
+      .attr('sandbox', 'allow-scripts allow-pointer-lock allow-same-origin allow-popups allow-modals allow-forms')
+      .attr('allowtransparency', 'true')
 
     $obj.addClass('is-loading is-current')
 
