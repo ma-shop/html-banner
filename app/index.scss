@@ -70,14 +70,25 @@ iframe {
     height: 100%;
     position: absolute;
     width: 100%;
+    z-index: 1; // brings the iframe above the pseudo element
+
+    .peppermint & {
+      z-index: 0; // move iframe behind the pseudo element because we can't interact with it if it's a slider banner
+    }
+  }
+}
+
+.c-banner-html {
+  &, body {
+    height: 100%;
+    overflow: hidden;
+    width: 100%;
   }
 }
 
 
 html, body {
-  height: 100%;
   min-width: 320px;
-  width: 100%;
 }
 
 
@@ -111,9 +122,7 @@ html, body {
     top: -50vw;
     width: 100%;
     z-index: 1;
-
   }
-
 
 
   &:after {
@@ -129,21 +138,23 @@ html, body {
     transform: rotate(-25deg);
   }
 
+  &.is-prev, &.is-next {
+    &:before, &:after {
+      transition: width 0s 1s;
+      width: 200%;
+    }
+  }
+
   &.is-current {
     $duration: 0.35s;
 
-
     &:before, &:after {
-      animation: one-pseudos 1s ease-in-out forwards;
-      width: 200%;
+      animation: one-pseudos 1s ease-in-out;
+      width: 100%;
 
       @keyframes one-pseudos {
         0% {
           width: 200%;
-        }
-
-        100% {
-          width: 100%;
         }
       }
     }
@@ -273,8 +284,194 @@ html, body {
       color: #fff;
       text-decoration: none;
     }
+
+    &:hover {
+      background: lighten(#0085ad, 20%);
+    }
+
+    &:focus, &:active {
+      background: darken(#0085ad, 20%);
+    }
   }
 }
+
+
+.c-banner--two {
+  $primary: #7375cf;
+  $secondary: #25cbd3;
+  align-items: center;
+  background: linear-gradient(to right, #e8f0f9 0%, #e4d8f6 100%);
+  color: $primary;
+  display: flex;
+  font: 900 13.4vmin/1.1em 'Nunito';
+  justify-content: center;
+  padding: 2vw;
+
+  * {
+    position: relative;
+    z-index: 2;
+  }
+
+  b {
+    color: $secondary;
+    font-weight: 900;
+    margin-right: 0.25em;
+
+    &:after {
+      color: $secondary;
+    }
+  }
+
+  span:after {
+    color: $primary;
+  }
+
+  span, b {
+    display: inline-block;
+    opacity: 0;
+    position: relative;
+  }
+
+  // stylelint-disable-next-line
+  &.is-current {
+    span, b {
+      animation: banner-two-text 2s ease-in-out;
+      opacity: 1;
+
+      @keyframes banner-two-text {
+        0%, 90% {
+          color: rgba(#000, 0);
+        }
+      }
+
+      &:after {
+        animation: banner-two-pseudo-text 1s ease-in-out;
+        content: attr(data-text);
+        left: 0;
+        position: absolute;
+        text-align: left;
+        top: 0;
+        width: 999em;
+
+        @keyframes banner-two-pseudo-text {
+          0% {
+            left: -2.5em;
+            letter-spacing: 0.5em;
+          }
+
+          0%, 50% {
+            filter: blur(0.25em);
+          }
+        }
+      }
+    }
+  }
+
+  .c-banner__wrapper {
+    display: flex;
+    flex-flow: column nowrap;
+    height: 100%;
+    max-width: 550px;
+    text-align: center;
+  }
+
+
+  .c-banner__bg {
+    animation: bg-two 10s ease-in-out -1s alternate infinite;
+    bottom: 0;
+    left: 50%;
+    max-width: 1600px;
+    position: absolute;
+    transform: translateX(-50%);
+    z-index: 0;
+
+    @keyframes bg-two {
+      0% { transform: translateX(-35%); }
+      100% { transform: translateX(-65%); }
+    }
+  }
+
+
+  .c-banner__products {
+    flex: 1;
+  }
+
+  .c-banner__products-img {
+    left: 50%;
+    max-height: 100%;
+    position: absolute;
+    transform: translateX(-50%);
+  }
+
+  .c-btn {
+    background: $secondary;
+    border-radius: 0.15em;
+    display: inline-block;
+    font-family: 'Myriad Pro';
+    font-size: 0.55em;
+    font-weight: 200;
+    line-height: 1em;
+    margin: 0.25em 0 0 0.5em;
+    opacity: 0;
+    padding: 0.35em 0.75em 0.15em;
+    vertical-align: top;
+
+    &, &:hover, &:focus, &:active {
+      color: #fff;
+      text-decoration: none;
+    }
+
+    &:hover {
+      background: lighten($secondary, 20%);
+    }
+
+    &:focus, &:active {
+      background: darken($secondary, 20%);
+    }
+  }
+
+  // stylelint-disable-next-line
+  &.is-current .c-btn {
+    animation: jello 1.5s 1s forwards;
+
+    // stylelint-disable number-max-precision, selector-max-specificity
+    @keyframes jello {
+      0%, 11.1%, 100% {
+        opacity: 1;
+        transform: none;
+      }
+
+      22.2% {
+        transform: skewX(-12.5deg) skewY(-12.5deg);
+      }
+
+      33.3% {
+        transform: skewX(6.25deg) skewY(6.25deg);
+      }
+
+      44.4% {
+        transform: skewX(-3.125deg) skewY(-3.125deg);
+      }
+
+      55.5% {
+        transform: skewX(1.5625deg) skewY(1.5625deg);
+      }
+
+      66.6% {
+        transform: skewX(-0.78125deg) skewY(-0.78125deg);
+      }
+
+      77.7% {
+        transform: skewX(0.390625deg) skewY(0.390625deg);
+      }
+
+      88.8% {
+        transform: skewX(-0.1953125deg) skewY(-0.1953125deg);
+      }
+    }
+  }
+}
+
 
 
 
